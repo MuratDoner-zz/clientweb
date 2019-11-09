@@ -6,7 +6,6 @@
           <div class="progress" v-if="uploadState !== null">
             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar">{{ uploadLabel }}</div>
           </div>
-
             <form @submit.prevent="sendMessage">
                 <div class="input-group mb-3">
                     <input v-model.trim="message" name="message" id="message" placeholder="Write something" class="form-control mt-3" autofocus>
@@ -16,26 +15,27 @@
                     </div>
 
                     <div class="input-group-append">
-                        <button @click.prevent="openFileModal" :disabled="uploadState == 'uploading'" class="btn btn-warning mt-3" type="button">Upload</button>
+                        <file-dialog></file-dialog>
                     </div>
                 </div>
             </form>
-
-            <!-- file modal -->
-            <file-modal ref="file_modal"></file-modal>
         </div>
+
     </div>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
-import FileModal from './FileModal'
-import uuid from 'uuidv4'
-import storage from 'firebase/storage'
+    import {mapGetters} from 'vuex'
+    import FileDialog from './FileDialog'
+    import $ from 'jquery';
+    import firebase from 'firebase/app';
+
+    import uuid from 'uuidv4'
+    import 'firebase/storage'
 
     export default {
         name: 'message-form',
-        components: {FileModal},
+        components: {FileDialog},
 
         data() {
           return {
@@ -53,12 +53,15 @@ import storage from 'firebase/storage'
           // upload state
           uploadLabel() {
             switch(this.uploadState) {
-              case 'uploading': return 'Uploading in progress'
-                break
-              case 'error': return 'Error occured'
-                break
-              case 'done': return 'Upload completed'
-                break
+                case 'uploading':
+                    return 'Uploading in progress'
+
+                case 'error':
+                    return 'Error occured'
+
+                case 'done':
+                    return 'Upload completed'
+
               default: return ''
             }
           }
@@ -145,7 +148,7 @@ import storage from 'firebase/storage'
                 // reset form
                 this.$refs.file_modal.resetForm()
                 // recover the url of file
-                let fileUrl = this.uploadTask.snapshot.ref.getDownloadURL().then(fileUrl => {
+                  this.uploadTask.snapshot.ref.getDownloadURL().then(fileUrl => {
                   this.sendFileMessage(fileUrl, ref, pathToUpload)
                 })
               })
@@ -172,7 +175,7 @@ import storage from 'firebase/storage'
 
           openFileModal() {
             $("#fileModal").appendTo("body").modal('show');
-            console.log('openfilemodal')
+
           }
         },
 

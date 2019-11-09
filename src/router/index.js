@@ -1,11 +1,11 @@
 import Vue from "vue";
 import Router from "vue-router";
+import VueRouter from "vue-router";
+import firebase from 'firebase/app';
 
 import Chat from "../pages/Chat";
 import Login from "../pages/Login";
 import Register from "@/pages/Register";
-import auth from "firebase/auth";
-import VueRouter from 'vue-router'
 
 Vue.use(VueRouter);
 

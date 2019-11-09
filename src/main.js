@@ -4,7 +4,6 @@ import 'firebase/auth';
 import store from './store/store';
 import vuetify from './plugins/vuetify';
 import router from './router'
-
 import Vue from 'vue';
 
 Vue.config.productionTip = false;
