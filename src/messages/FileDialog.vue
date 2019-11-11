@@ -24,7 +24,7 @@
             <v-card-text>
                 <form class="form">
                     <div class="form-group">
-                        <v-file-input @change="addFile"
+                        <v-file-input
                                       id="file" label="File input"
                                       name="file" show-size
                                       v-model="file"

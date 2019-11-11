@@ -3,9 +3,13 @@
         <div class="messageform">
 
           <!-- file upload progress bar -->
-          <div class="progress" v-if="uploadState !== null">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar">{{ uploadLabel }}</div>
-          </div>
+            <v-progress-linear
+                    :active="active"
+                    :height="9"
+                    :value="percent"
+            >
+                <strong>{{ Math.ceil(percent) }}%</strong>
+            </v-progress-linear>
             <form @submit.prevent="sendMessage">
                 <div class="input-group mb-3">
                     <input v-model.trim="message" name="message" id="message" placeholder="Write something" class="form-control mt-3" autofocus>
@@ -39,6 +43,8 @@
 
         data() {
           return {
+              percent: 0,
+              active: false,
             message: '',
             errors: [],
             storageRef: firebase.storage().ref(),
@@ -134,19 +140,20 @@
               this.uploadTask.on('state_changed', snapshot => {
                 // upload in progress
                 let percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                $(".progress-bar").css("width", percent+'%')
+                  this.active = true;
+                  this.percent = percent;
               }, error => {
                 // error
                 this.errors.push(error.message)
                 this.uploadState = 'error'
                 this.uploadTask = null
                 // reset form
-                this.$refs.file_modal.resetForm()
+
               }, () => {
                 // upload finished
                 this.uploadState = 'done'
                 // reset form
-                this.$refs.file_modal.resetForm()
+                  this.active = false;
                 // recover the url of file
                   this.uploadTask.snapshot.ref.getDownloadURL().then(fileUrl => {
                   this.sendFileMessage(fileUrl, ref, pathToUpload)
