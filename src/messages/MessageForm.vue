@@ -31,7 +31,6 @@
 <script>
     import {mapGetters} from 'vuex'
     import FileDialog from './FileDialog'
-    import $ from 'jquery';
     import firebase from 'firebase/app';
 
     import uuid from 'uuidv4'
@@ -92,7 +91,7 @@
                 this.$parent.getMessagesRef().child(this.currentChannel.id).push().set(this.createMessage())
                 .then(() => {
                   this.$nextTick(() => {
-                    $("html, body").scrollTop($(document).height());
+                      this.mounted();
                   })
                 })
                 .catch((error) => {
@@ -164,7 +163,7 @@
           sendFileMessage(fileUrl, ref, pathToUpload) {
             ref.child(pathToUpload).push().set(this.createMessage(fileUrl)).then(() => {
               this.$nextTick(() => {
-                $("html, body").scrollTop($(document).height())
+                  this.mounted();
               })
             }).catch(error => {
               this.errors.push(error.message)
@@ -178,16 +177,12 @@
             } else {
               return 'chat/public'
             }
-          },
-
-          openFileModal() {
-            $("#fileModal").appendTo("body").modal('show');
-
           }
         },
 
         mounted() {
-          $("html, body").scrollTop($(document).height());
+
+            //TODO:$("html, body").scrollTop($(document).height());
         },
 
         beforeDestroy() {
