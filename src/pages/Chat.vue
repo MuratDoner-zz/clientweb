@@ -1,30 +1,70 @@
 <template>
-    <div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-4 sidebar">
-                    <sidebar></sidebar>
-                </div>
+    <div id="app">
 
-                <div class="col-md-8 content">
-                    <messages></messages>
-                </div>
-            </div>
-        </div>
+        <v-navigation-drawer
+                v-model="drawer"
+                app
+        >
+
+
+            <v-list dense>
+                <v-list-item click="">
+                    <v-list-item-action>
+                        <v-icon>home</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Home</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-list-item click="">
+                    <v-list-item-action>
+                        <v-icon>contact_mail</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Contact</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-list>
+        </v-navigation-drawer>
+
+
+
+        <v-app-bar
+                app
+                color="indigo"
+                dark
+        >
+            <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+            <v-toolbar-title>Application</v-toolbar-title>
+        </v-app-bar>
+
     </div>
+
+
 </template>
 
+
 <script>
-import Sidebar from '../sidebar/Sidebar'
-import Messages from '../messages/Messages'
 
     export default {
-        name: 'chat',
-
-        components: {Sidebar, Messages}
+        name: 'frame-chat',
+        drawer: null
 
     }
 </script>
+
+<script>
+    import Sidebar from '../sidebar/Sidebar'
+import Messages from '../messages/Messages'
+export default {
+
+    name: 'Chat',
+
+    pages: {Sidebar, Messages}
+
+}
+</script>
+
 
 <style scoped>
     .sidebar {
@@ -33,7 +73,7 @@ import Messages from '../messages/Messages'
         float: left;
         position: fixed;
         height: 100%;
-        background: #000;
+        background: #ffffff;
         padding-top: 2em;
         overflow: scroll;
     }
@@ -45,20 +85,3 @@ import Messages from '../messages/Messages'
         margin-left: 34%;
     }
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,18 +1,22 @@
 <template>
-    <div id="app">
-        <v-app>
-            <router-view/>
-        </v-app>
-    </div>
+    <v-app>
+
+        <Chat/>
+
+    </v-app>
 </template>
 
 <script>
-export default {
-  name: 'App',
-  components: {
-  },
-  data: () => ({
-    //
-  }),
-};
+
+    import Chat from "./pages/Chat.vue";
+
+    export default {
+        name: 'App',
+        components: {
+            Chat,
+        },
+        data: () => ({
+            //
+        }),
+    };
 </script>
