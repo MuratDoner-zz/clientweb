@@ -4,7 +4,11 @@
 
         <!-- show list of channels -->
         <div class="mt-4">
-            <button v-for="channel in channels" class="list-group-item list-group-item-action" type="button" :class="{'active': setActiveChannel(channel)}" @click="changeChannel(channel)">{{ channel.name }} <span v-if="getNotification(channel) > 0 && channel.id !== currentChannel.id" class="float-right">{{ getNotification(channel) }}</span></button>
+            <button :class="{'active': setActiveChannel(channel)}" @click="changeChannel(channel)"
+                    class="list-group-item list-group-item-action" type="button" v-bind:key="channel"
+                    v-for="channel in channels">{{ channel.name }} <span class="float-right"
+                                                                         v-if="getNotification(channel) > 0 && channel.id !== currentChannel.id">{{ getNotification(channel) }}</span>
+            </button>
         </div>
 
         <!-- Modal -->
@@ -26,7 +30,8 @@
                     </div>
                     <!-- errors -->
                     <ul class="list-group" v-if="hasErrors">
-                        <li class="list-group-item text-danger" v-for="error in errors">{{ error }}</li>
+                        <li class="list-group-item text-danger" v-bind:key="error" v-for="error in errors">{{ error }}
+                        </li>
                     </ul>
                 </form>
               </div>
@@ -91,7 +96,6 @@
                 this.errors = []
                 // get key to the newly creating channel
                 let key = this.channelsRef.push().key
-                console.log('newly creating channel key: ', key)
                 // minimum info needed to create a new channel
                 // id and name
                 let newChannel = {id: key, name: this.new_channel}

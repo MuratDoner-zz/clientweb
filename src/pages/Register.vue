@@ -37,7 +37,7 @@
                     <br>
 
                   <div class="alert alert-danger" v-if="hasErrors">
-                      <div v-for="error in errors">{{ error }}</div>
+                      <div v-bind:key="error" v-for="error in errors">{{ error }}</div>
                   </div>
                 </form>
             </div>

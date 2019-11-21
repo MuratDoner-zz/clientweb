@@ -4,7 +4,9 @@
             <h4>Users</h4>
 
                 <div class="mt-4">
-                    <button v-for="user in users" class="list-group-item list-group-item-action" type="button" :class="{'active': isActive(user)}" @click.prevent="changeChannel(user)">
+                    <button :class="{'active': isActive(user)}" @click.prevent="changeChannel(user)"
+                            class="list-group-item list-group-item-action" type="button" v-bind:key="user"
+                            v-for="user in users">
 
                         <span :class="{'fa fa-circle online': isOnline(user), 'fa fa-circle offline': !isOnline(user)}"></span>
                         
