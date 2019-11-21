@@ -25,11 +25,12 @@
 </template>
 
 <script>
-import auth from 'firebase/auth'
-import {mapGetters} from 'vuex'
-import Channels from './Channels'
-import Users from './Users'
-import database from 'firebase/database'
+    import 'firebase/auth'
+    import {mapGetters} from 'vuex'
+    import Channels from './Channels'
+    import Users from './Users'
+    import 'firebase/database'
+    import firebase from 'firebase';
 
     export default {
         name: 'sidebar',

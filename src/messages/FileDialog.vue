@@ -25,9 +25,9 @@
                 <form class="form">
                     <div class="form-group">
                         <v-file-input
-                                      id="file" label="File input"
-                                      name="file" show-size
-                                      v-model="file"
+                                id="file" label="File input"
+                                name="file" show-size
+                                v-model="files"
                         ></v-file-input>
 
                     </div>

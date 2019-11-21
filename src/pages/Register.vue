@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import firebase from 'firebase'
-import md5 from 'md5'
+    import firebase from 'firebase'
+    import md5 from 'md5'
 
     export default {
         name: 'register',
@@ -73,15 +73,15 @@ import md5 from 'md5'
         methods: {
             register() {
                 // on each new attempt clear the old errors
-                this.errors = []
-                // console.log('register')
+                this.errors = [];
+
                 if(this.isFormValid()) {
                     // set loading class to true
                     this.isLoading = true
 
                     firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
                     .then(response => {
-                        console.log(response)
+
                         // set the user's name and avatar
                         let user = response.user;
 
@@ -101,7 +101,6 @@ import md5 from 'md5'
                             })
                         },
                         error => {
-                            console.log(error)
                             this.errors.push(error.message)
                             // set loading class to true
                             this.isLoading = false
@@ -109,7 +108,6 @@ import md5 from 'md5'
 
                     }) 
                     .catch(error => {
-                        console.log(error)
                         this.errors.push(error.message)
                         // set loading class to true
                         this.isLoading = false
@@ -166,4 +164,3 @@ import md5 from 'md5'
 
 
 
-  

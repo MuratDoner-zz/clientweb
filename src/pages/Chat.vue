@@ -28,22 +28,18 @@
 
 </template>
 
-
-<script>
-
-    export default {
-        name: 'frame-chat',
-        drawer: null
-
-    }
-</script>
-
 <script>
     import Sidebar from '../sidebar/Sidebar'
-import Messages from '../messages/Messages'
-export default {
+    import Messages from '../messages/Messages'
+
+    export default {
 
     name: 'Chat',
+        data() {
+            return {
+                drawer: null
+            }
+        },
     components: {Messages, Sidebar},
     pages: {Sidebar, Messages}
 

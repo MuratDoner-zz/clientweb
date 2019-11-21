@@ -28,7 +28,7 @@
                   </big>
         <br>
         <div class="alert alert-danger" v-if="hasErrors">
-          <div v-for="error in errors">{{ error }}</div>
+          <div v-bind:key="error" v-for="error in errors">{{ error }}</div>
         </div>
       </form>
       <!-- forgot password form -->
@@ -44,7 +44,7 @@
         </div>
         <!-- show errors -->
         <div class="alert alert-danger" v-if="hasErrors">
-          <div v-for="error in errors">{{ error }}</div>
+          <div v-bind:key="error" v-for="error in errors">{{ error }}</div>
         </div>
       </form>
       <!-- social login -->
@@ -58,10 +58,11 @@
   </div>
 </template>
 <script>
-import auth from 'firebase/auth'
-import database from 'firebase/database'
+  import 'firebase/auth'
+  import 'firebase/database'
+  import firebase from 'firebase'
 
-export default {
+  export default {
   name: 'login',
 
   data() {
@@ -71,7 +72,7 @@ export default {
       forgot_password: '',
       fpform: false,
       errors: [],
-      loading: false,
+      isLoading: false,
       usersRef: firebase.database().ref('users')
     }
   },
@@ -84,7 +85,7 @@ export default {
 
   methods: {
     login() {
-      console.log('login')
+
       this.errors = []
 
       if (!this.isFormValid()) {
@@ -92,7 +93,7 @@ export default {
 
         firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(response => {
           let user = response.user;
-          console.log(user)
+
 
           this.$store.dispatch('setUser', user)
           this.$router.push('/')
@@ -111,9 +112,9 @@ export default {
     },
 
     forgotPassword() {
-      console.log('forgot password', this.forgot_password)
+
       firebase.auth().sendPasswordResetEmail(this.forgot_password)
-        .then(success => {
+              .then(() => {
           this.fpform = false
           alert('Check your email for password reset link')
           this.$router.push('/')
@@ -135,7 +136,6 @@ export default {
 
       firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
         .then((response) => {
-          // console.log(response.user)
 
           // pass user to save in db
           this.saveUserToUsersRef(response.user)
@@ -168,7 +168,6 @@ export default {
 
       firebase.auth().signInWithPopup(new firebase.auth.TwitterAuthProvider())
         .then((response) => {
-          // console.log(response.user)
 
           // dispatch setUser action
           this.$store.dispatch('setUser', response.user)

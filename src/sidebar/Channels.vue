@@ -42,9 +42,10 @@
 </template>
 
 <script>
-import database from 'firebase/database'
-import {mapGetters} from 'vuex'
-import mixin from '../mixins'
+    import firebase from 'firebase'
+    import 'firebase/database'
+    import {mapGetters} from 'vuex'
+    import mixin from '../mixins'
 
     export default {
         name: 'channels',
@@ -81,7 +82,8 @@ import mixin from '../mixins'
 
         methods: {
             openModal() {
-                $('#channelModal').appendTo("body").modal('show');
+                alert("jquery");
+                // $('#channelModal').appendTo("body").modal('show');
             },
 
             // add channel
@@ -100,7 +102,7 @@ import mixin from '../mixins'
                     this.$store.dispatch("setCurrentChannel", newChannel)
                     
                     this.new_channel = ''
-                    $("#channelModal").modal('hide')
+                    // $("#channelModal").modal('hide')
                 })
                 // error handling
                 .catch((error) => {

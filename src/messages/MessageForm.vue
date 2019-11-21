@@ -124,8 +124,7 @@
             return message
           },
 
-          uploadFile(file, metadata) {
-            // console.log('file: ', file, ' metadata: ', metadata)
+            uploadFile(file, metadata) {
             if(file === null) return false
 
               let pathToUpload = this.currentChannel.id

@@ -21,9 +21,10 @@
 </template>
 
 <script>
-import database from 'firebase/database'
-import {mapGetters} from 'vuex'
-import mixin from '../mixins'
+    import firebase from 'firebase';
+    import 'firebase/database';
+    import {mapGetters} from 'vuex';
+    import mixin from '../mixins';
 
     export default {
         name: 'users',
@@ -92,7 +93,6 @@ import mixin from '../mixins'
 
                 // returns 'connected' to every user connected to our application
                 this.connectedRef.on('value', snapshot => {
-                    // console.log('connected user: ', snapshot)
                     if(snapshot.val() === true) {
                         let ref = this.presenceRef.child(this.currentUser.uid)
                         ref.set(true)

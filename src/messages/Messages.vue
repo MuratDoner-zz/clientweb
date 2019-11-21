@@ -9,10 +9,11 @@
 </template>
 
 <script>
-import SingleMessage from './SingleMessage'
-import MessageForm from './MessageForm'
-import database from 'firebase/database'
-import {mapGetters} from 'vuex'
+    import SingleMessage from './SingleMessage'
+    import MessageForm from './MessageForm'
+    import firebase from 'firebase';
+    import 'firebase/database'
+    import {mapGetters} from 'vuex'
 
     export default {
         name: 'messages',
@@ -36,6 +37,7 @@ import {mapGetters} from 'vuex'
                 if(this.channel !== null) {
                     return this.isPrivate ? '@ ' + this.channel.name : '# ' + this.channel.name
                 }
+                return "";
             }
         },
 
@@ -62,14 +64,17 @@ import {mapGetters} from 'vuex'
 
                     // scroll to the top
                     this.$nextTick(() => {
-                        $("html, body").scrollTop($(document).height());
+                        this.mounted();
                       })
                 })
 
                 // pass arguments to addToListeners() method
                 this.addToListeners(this.currentChannel.id, ref, 'child_added')
             },
+            mounted() {
 
+                //TODO:$("html, body").scrollTop($(document).height());
+            },
             addToListeners(id, ref, event) {
                 let index = this.listeners.findIndex(el => {
                     return el.id === id && el.ref === ref && el.event === event
